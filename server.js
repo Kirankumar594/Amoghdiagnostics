@@ -72,7 +72,13 @@ app.use("/api/about", aboutRoutes);
 app.use('/api/orders', orderRoutes);
 
 
+app.use(express.static(path.join(__dirname, 'build'))); // Change 'build' to your frontend folder if needed
 
+// Redirect all requests to the index.html file
+
+app.get("*", (req, res) => {
+  return  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
